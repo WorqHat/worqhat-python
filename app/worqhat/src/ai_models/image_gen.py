@@ -1,6 +1,4 @@
 import requests 
-from ..utils import Authenticate
-
 
 def generate_image_v2(prompt, image_style="realistic", output_type="url", orientation="square", api_key=None):
     auth_status = Authenticate(api_key).get("status")

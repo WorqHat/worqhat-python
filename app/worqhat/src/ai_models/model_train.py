@@ -1,7 +1,4 @@
 import requests 
-from ..utils import Authenticate
-
-
 def list_datasets(api_key=None):
     auth_status = Authenticate(api_key).get("status")
     if auth_status == "success":

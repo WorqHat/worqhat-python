@@ -1,6 +1,4 @@
 import requests 
-from .utils.authentication import Authenticate
-
 
 def get_ai_responsev2(question, 
                     preserve_history=True, 

@@ -1,5 +1,4 @@
 import requests 
-from ..utils import Authenticate
 
 def image_analysis(images, question, training_data=None, output_type="text", stream_data=False, api_key=None):
     url = "https://api.worqhat.com/api/ai/images/v2/image-analysis"

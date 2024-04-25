@@ -1,5 +1,4 @@
 import requests 
-from ..utils import Authenticate
 
 def content_moderation(text_content, api_key=None):
     url = "https://api.worqhat.com/api/ai/moderation"

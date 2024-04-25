@@ -1,6 +1,4 @@
 import requests 
-from ..utils import Authenticate
-
 def pdf_extract(pdf_file, api_key=None):
     url = "https://api.worqhat.com/api/ai/v2/pdf-extract"
     headers = {
