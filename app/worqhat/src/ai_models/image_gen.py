@@ -1,94 +1,84 @@
 import requests 
 
 def generate_image_v2(prompt, image_style="realistic", output_type="url", orientation="square", api_key=None):
-    auth_status = Authenticate(api_key).get("status")
-    if auth_status == "success":
-        url = "https://api.worqhat.com/api/ai/images/generate/v2"
-        headers = {
-            "Authorization": "Bearer " + api_key,
-            "Content-Type": "application/json"
-        }
 
-        payload = {
-            "prompt": prompt,
-            "image_style": image_style,
-            "output_type": output_type,
-            "orientation": orientation
-        }
+    url = "https://api.worqhat.com/api/ai/images/generate/v2"
+    headers = {
+        "Authorization": "Bearer " + api_key,
+        "Content-Type": "application/json"
+    }
 
-        response = requests.post(url, json=payload, headers=headers)
+    payload = {
+        "prompt": prompt,
+        "image_style": image_style,
+        "output_type": output_type,
+        "orientation": orientation
+    }
 
-        return response.text
-    else:
-        return auth_status
+    response = requests.post(url, json=payload, headers=headers)
+
+    return response.text
+
     
 def generate_image_v3(prompt, image_style="realistic", output_type="url", orientation="square", api_key=None):
-    auth_status = Authenticate(api_key).get("status")
-    if auth_status == "success":
-        url = "https://api.worqhat.com/api/ai/images/generate/v3"
-        headers = {
+    
+    url = "https://api.worqhat.com/api/ai/images/generate/v3"
+    headers = {
             "Authorization": "Bearer " + api_key,
             "Content-Type": "application/json"
-        }
+    }
 
-        payload = {
+    payload = {
             "prompt": prompt,
             "image_style": image_style,
             "output_type": output_type,
             "orientation": orientation
-        }
+    }
 
-        response = requests.post(url, json=payload, headers=headers)
+    response = requests.post(url, json=payload, headers=headers)
 
-        return response.text
-    else:
-        return auth_status
+    return response.text
+
 
 def modify_image_v2(file_path, modification, output_type="url", similarity=50, api_key=None):
-    auth_status = Authenticate(api_key).get("status")
-    if auth_status == "success":
-        url = "https://api.worqhat.com/api/ai/images/modify/v2"
-        headers = {
-            "Authorization": "Bearer " + api_key,
-            "Content-Type": "multipart/form-data"
-        }
+   
+    url = "https://api.worqhat.com/api/ai/images/modify/v2"
+    headers = {
+        "Authorization": "Bearer " + api_key,
+        "Content-Type": "multipart/form-data"
+    }
 
         # Construct payload with multipart form-data
-        payload = {
+    payload = {
             "output_type": (None, output_type),
             "modification": (None, modification),
             "similarity": (None, str(similarity)),
             "existing_image": (file_path.split("/")[-1], open(file_path, 'rb'))
-        }
+    }
 
-        response = requests.post(url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
-        return response.text
-    else:
-        return auth_status
+    return response.text
+ 
     
 def modify_image_v3(image_file, modification, output_type="url", similarity=50, api_key=None):
-    auth_status = Authenticate(api_key).get("status")
-    if auth_status == "success":
-        url = "https://api.worqhat.com/api/ai/images/modify/v3"
-        headers = {
+    url = "https://api.worqhat.com/api/ai/images/modify/v3"
+    headers = {
             "Authorization": "Bearer " + api_key,
             "Content-Type": "multipart/form-data"
-        }
+    }
 
         # Construct payload with multipart form-data
-        payload = {
+    payload = {
             "output_type": (None, output_type),
             "modification": (None, modification),
             "similarity": (None, str(similarity)),
             "existing_image": (image_file.name, image_file)
         }
 
-        response = requests.post(url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
-        return response.text
-    else:
-        return auth_status
+    return response.text
     
 def modify_image_v3(image_file, modification, output_type="url", similarity=50, api_key=None):
     url = "https://api.worqhat.com/api/ai/images/modify/v3"

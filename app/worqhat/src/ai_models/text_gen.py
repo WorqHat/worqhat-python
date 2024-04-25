@@ -9,8 +9,6 @@ def get_ai_responsev2(question,
                     response_type="text",
                     api_key=None):
 
-    auth_status = Authenticate(api_key).get("status")
-    if auth_status == "success":
         url = "https://api.worqhat.com/api/ai/content/v2"
 
         payload = {
@@ -31,8 +29,7 @@ def get_ai_responsev2(question,
         response = requests.post(url, json=payload, headers=headers)
 
         return response.text
-    else:
-        return auth_status
+
     
 def get_ai_responsev3(question, 
                     preserve_history=True, 
@@ -43,8 +40,7 @@ def get_ai_responsev3(question,
                     response_type="text",
                     api_key=None):
 
-    auth_status = Authenticate(api_key).get("status")
-    if auth_status == "success":
+   
         url = "https://api.worqhat.com/api/ai/content/v3"
 
         payload = {
@@ -65,8 +61,6 @@ def get_ai_responsev3(question,
         response = requests.post(url, json=payload, headers=headers)
 
         return response.text
-    else:
-        return auth_status
 
 def get_large_ai_response_v2(question, 
                           dataset_id, 
@@ -76,8 +70,6 @@ def get_large_ai_response_v2(question,
                           conversation_history=None, 
                           instructions=None, 
                           api_key=None):
-    auth_status = Authenticate(api_key).get("status")
-    if auth_status == "success":
         url = "https://api.worqhat.com/api/ai/content/v2-large/answering"
 
         payload = {
@@ -98,8 +90,7 @@ def get_large_ai_response_v2(question,
         response = requests.post(url, json=payload, headers=headers)
 
         return response.text
-    else:
-        return auth_status
+
 
 def get_alpha_ai_response(question, 
                           preserve_history=True, 
@@ -109,8 +100,6 @@ def get_alpha_ai_response(question,
                           training_data=None, 
                           response_type="text",
                           api_key=None):
-    auth_status = Authenticate(api_key).get("status")
-    if auth_status == "success":
         url = "https://api.worqhat.com/api/ai/content/v3/alpha"
 
         payload = {
@@ -131,5 +120,3 @@ def get_alpha_ai_response(question,
         response = requests.post(url, json=payload, headers=headers)
 
         return response.text
-    else:
-        return auth_status
