@@ -1,6 +1,6 @@
 import requests 
 
-def content_moderation(text_content, api_key=None):
+def content_moderation(api_key=None,text_content="Hello! My name is Alex" ):
     url = "https://api.worqhat.com/api/ai/moderation"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -11,11 +11,11 @@ def content_moderation(text_content, api_key=None):
         "text_content": text_content
     }
 
-    response = requests.post(url, json=payload, headers=headers)
+    response = requests.request(url, json=payload, headers=headers)
 
     return response.text
 
-def image_moderation(image_file, api_key=None):
+def image_moderation(api_key=None,image_file=None ):
     url = "https://api.worqhat.com/api/ai/images/v2/image-moderation"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -26,6 +26,6 @@ def image_moderation(image_file, api_key=None):
         "image": (image_file.name, image_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text

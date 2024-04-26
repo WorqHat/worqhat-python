@@ -15,7 +15,7 @@ def generate_image_v2(prompt, image_style="realistic", output_type="url", orient
         "orientation": orientation
     }
 
-    response = requests.post(url, json=payload, headers=headers)
+    response = requests.request(url, json=payload, headers=headers)
 
     return response.text
 
@@ -35,7 +35,7 @@ def generate_image_v3(prompt, image_style="realistic", output_type="url", orient
             "orientation": orientation
     }
 
-    response = requests.post(url, json=payload, headers=headers)
+    response = requests.request(url, json=payload, headers=headers)
 
     return response.text
 
@@ -56,7 +56,7 @@ def modify_image_v2(file_path, modification, output_type="url", similarity=50, a
             "existing_image": (file_path.split("/")[-1], open(file_path, 'rb'))
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
  
@@ -76,7 +76,7 @@ def modify_image_v3(image_file, modification, output_type="url", similarity=50, 
             "existing_image": (image_file.name, image_file)
         }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
     
@@ -94,7 +94,7 @@ def modify_image_v3(image_file, modification, output_type="url", similarity=50, 
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 
@@ -110,7 +110,7 @@ def remove_text_from_image(image_file, output_type="url", api_key=None):
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 
@@ -126,7 +126,7 @@ def remove_background_from_image(image_file, output_type="url", api_key=None):
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 
@@ -143,7 +143,7 @@ def replace_background(image_file, modification="Create Variation of the Image",
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 
@@ -160,7 +160,7 @@ def search_replace_image(image_file, modification="Create Variation of the Image
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 
@@ -183,7 +183,7 @@ def extend_image(image_file, left_extend=10, right_extend=10, top_extend=5, bott
     if description:
         payload["description"] = description
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 
@@ -200,7 +200,7 @@ def upscale_image(image_file, scale=2, output_type="url", api_key=None):
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 

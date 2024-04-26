@@ -1,7 +1,6 @@
 import requests 
-from ..utils import Authenticate
 
-def search_ai_v2(question, training_data, api_key=None):
+def search_ai_v2(api_key=None,question="What is the capital of Delhi?", training_data=None ):
     url = "https://api.worqhat.com/api/ai/search/v2"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -13,12 +12,12 @@ def search_ai_v2(question, training_data, api_key=None):
         "training_data": training_data
         }
 
-    response = requests.post(url, json=payload, headers=headers)
+    response = requests.request(url, json=payload, headers=headers)
 
     return response.text
 
     
-def search_ai_v3(api_key=None, question="", training_data="", search_count=10):
+def search_ai_v3(api_key=None, question="What is the capital of Delhi?", training_data="", search_count=10):
    
     url = "https://api.worqhat.com/api/ai/search/v3"
     headers = {
@@ -32,7 +31,7 @@ def search_ai_v3(api_key=None, question="", training_data="", search_count=10):
             "search_count": search_count
     }
 
-    response = requests.post(url, json=payload, headers=headers)
+    response = requests.request(url, json=payload, headers=headers)
 
     return response.text
 

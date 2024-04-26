@@ -1,6 +1,5 @@
-import requests 
-
-def image_analysis(images, question, training_data=None, output_type="text", stream_data=False, api_key=None):
+import requests
+def image_analysis(api_key=None, images=None, question=None, training_data=None, output_type="text", stream_data=False):
     url = "https://api.worqhat.com/api/ai/images/v2/image-analysis"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -14,17 +13,17 @@ def image_analysis(images, question, training_data=None, output_type="text", str
     }
 
     # Add images to payload as files
-    for i, image_file in enumerate(images):
+    for i, image_file in enumerate(images or []):
         payload[f"image_{i}"] = (image_file.name, image_file)
 
     if training_data:
         payload["training_data"] = training_data
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 
-def face_detection(image_file, api_key=None):
+def face_detection(api_key=None, image_file=None):
     url = "https://api.worqhat.com/api/ai/images/v2/face-detection"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -35,11 +34,11 @@ def face_detection(image_file, api_key=None):
         "image": (image_file.name, image_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 
-def facial_comparison(source_image_file, target_image_file, api_key=None):
+def facial_comparison(api_key=None, source_image_file=None, target_image_file=None):
     url = "https://api.worqhat.com/api/ai/images/v2/facial-comparison"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -51,6 +50,6 @@ def facial_comparison(source_image_file, target_image_file, api_key=None):
         "target_image": (target_image_file.name, target_image_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text

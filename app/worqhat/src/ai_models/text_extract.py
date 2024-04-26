@@ -1,5 +1,5 @@
 import requests 
-def pdf_extract(pdf_file, api_key=None):
+def pdf_extract( api_key=None, pdf_file=None):
     url = "https://api.worqhat.com/api/ai/v2/pdf-extract"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -10,11 +10,11 @@ def pdf_extract(pdf_file, api_key=None):
         "file": (pdf_file.name, pdf_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 
-def web_extract(url, headline=True, inline_code=True, code_blocks=True, references=True, tables=True, api_key=None):
+def web_extract(api_key=None, url_search="www.worqhat.com", headline=True, inline_code=True, code_blocks=True, references=True, tables=True):
     url = "https://api.worqhat.com/api/ai/v2/web-extract"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -22,7 +22,7 @@ def web_extract(url, headline=True, inline_code=True, code_blocks=True, referenc
     }
 
     payload = {
-        "url_path": url,
+        "url_path": url_search,
         "headline": headline,
         "inline_code": inline_code,
         "code_blocks": code_blocks,
@@ -30,11 +30,11 @@ def web_extract(url, headline=True, inline_code=True, code_blocks=True, referenc
         "tables": tables
     }
 
-    response = requests.post(url, json=payload, headers=headers)
+    response = requests.request(url, json=payload, headers=headers)
 
     return response.text
 
-def image_text_detection(image_file, output_type="json", api_key=None):
+def image_text_detection(api_key=None,image_file=None, output_type="json" ):
     url = "https://api.worqhat.com/api/ai/images/v2/image-text-detection"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -46,11 +46,11 @@ def image_text_detection(image_file, output_type="json", api_key=None):
         "image": (image_file.name, image_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
 
-def speech_to_text(audio_file, api_key=None):
+def speech_to_text(api_key=None,audio_file=None ):
     url = "https://api.worqhat.com/api/ai/speech-text"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -61,6 +61,6 @@ def speech_to_text(audio_file, api_key=None):
         "audio": (audio_file.name, audio_file)
     }
 
-    response = requests.post(url, files=payload, headers=headers)
+    response = requests.request(url, files=payload, headers=headers)
 
     return response.text
