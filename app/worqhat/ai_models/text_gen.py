@@ -1,11 +1,11 @@
 import requests 
 
-def get_ai_responsev2(api_key=None,question="What is the capital of India?", 
+def get_ai_responsev2(api_key=None,question="", 
                     preserve_history=True, 
                     randomness=0.5, 
                     stream_data=False, 
-                    conversation_history=None, 
-                    training_data=None, 
+                    conversation_history=[], 
+                    training_data="", 
                     response_type="text",
                     ):
 
@@ -26,17 +26,17 @@ def get_ai_responsev2(api_key=None,question="What is the capital of India?",
         if api_key:
             headers["Authorization"] = "Bearer " + api_key
 
-        response = requests.request(url, json=payload, headers=headers)
+        response = requests.request("POST",url, json=payload, headers=headers)
 
         return response.text
 
     
-def get_ai_responsev3(api_key=None,question="What is the capital of India?", 
+def get_ai_responsev3(api_key=None,question="", 
                     preserve_history=True, 
                     randomness=0.5, 
                     stream_data=False, 
-                    conversation_history=None, 
-                    training_data=None, 
+                    conversation_history=[], 
+                    training_data="", 
                     response_type="text",
                     ):
 
@@ -58,16 +58,16 @@ def get_ai_responsev3(api_key=None,question="What is the capital of India?",
         if api_key:
             headers["Authorization"] = "Bearer " + api_key
 
-        response = requests.request(url, json=payload, headers=headers)
+        response = requests.request("POST",url, json=payload, headers=headers)
 
         return response.text
 
-def get_large_ai_response_v2(api_key=None,question="What is the capital of Delhi?", 
-                          dataset_id="123456789", 
+def get_large_ai_response_v2(api_key=None,question="", 
+                          dataset_id="", 
                           preserve_history=True, 
                           randomness=0.5, 
                           stream_data=False, 
-                          conversation_history=None, 
+                          conversation_history=[], 
                           instructions=None, 
                           ):
         url = "https://api.worqhat.com/api/ai/content/v2-large/answering"
@@ -87,17 +87,17 @@ def get_large_ai_response_v2(api_key=None,question="What is the capital of Delhi
         if api_key:
             headers["Authorization"] = "Bearer " + api_key
 
-        response = requests.request(url, json=payload, headers=headers)
+        response = requests.request("POST",url, json=payload, headers=headers)
 
         return response.text
 
 
-def get_alpha_ai_response(api_key=None,question="What is the capital of Delhi?", 
+def get_alpha_ai_response(api_key=None,question="", 
                           preserve_history=True, 
                           randomness=0.5, 
                           stream_data=False, 
-                          conversation_history=None, 
-                          training_data=None, 
+                          conversation_history=[], 
+                          training_data="", 
                           response_type="text",
                           ):
         url = "https://api.worqhat.com/api/ai/content/v3/alpha"
@@ -117,6 +117,6 @@ def get_alpha_ai_response(api_key=None,question="What is the capital of Delhi?",
         if api_key:
             headers["Authorization"] = "Bearer " + api_key
 
-        response = requests.request(url, json=payload, headers=headers)
+        response = requests.request("POST",url, json=payload, headers=headers)
 
         return response.text

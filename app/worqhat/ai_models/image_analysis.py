@@ -19,7 +19,7 @@ def image_analysis(api_key=None, images=None, question=None, training_data=None,
     if training_data:
         payload["training_data"] = training_data
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 
@@ -34,7 +34,7 @@ def face_detection(api_key=None, image_file=None):
         "image": (image_file.name, image_file)
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 
@@ -50,6 +50,6 @@ def facial_comparison(api_key=None, source_image_file=None, target_image_file=No
         "target_image": (target_image_file.name, target_image_file)
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text

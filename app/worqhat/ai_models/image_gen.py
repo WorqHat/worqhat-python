@@ -1,6 +1,6 @@
 import requests 
 
-def generate_image_v2(prompt, image_style="realistic", output_type="url", orientation="square", api_key=None):
+def generate_image_v2(api_key=None,prompt="", image_style="realistic", output_type="url", orientation="square" ):
 
     url = "https://api.worqhat.com/api/ai/images/generate/v2"
     headers = {
@@ -15,12 +15,12 @@ def generate_image_v2(prompt, image_style="realistic", output_type="url", orient
         "orientation": orientation
     }
 
-    response = requests.request(url, json=payload, headers=headers)
+    response = requests.request("POST",url, json=payload, headers=headers)
 
     return response.text
 
     
-def generate_image_v3(prompt, image_style="realistic", output_type="url", orientation="square", api_key=None):
+def generate_image_v3(api_key=None,prompt="", image_style="realistic", output_type="url", orientation="square", ):
     
     url = "https://api.worqhat.com/api/ai/images/generate/v3"
     headers = {
@@ -35,12 +35,12 @@ def generate_image_v3(prompt, image_style="realistic", output_type="url", orient
             "orientation": orientation
     }
 
-    response = requests.request(url, json=payload, headers=headers)
+    response = requests.request("POST",url, json=payload, headers=headers)
 
     return response.text
 
 
-def modify_image_v2(file_path, modification, output_type="url", similarity=50, api_key=None):
+def modify_image_v2(api_key=None,file_path="", modification="", output_type="url", similarity=50 ):
    
     url = "https://api.worqhat.com/api/ai/images/modify/v2"
     headers = {
@@ -56,12 +56,12 @@ def modify_image_v2(file_path, modification, output_type="url", similarity=50, a
             "existing_image": (file_path.split("/")[-1], open(file_path, 'rb'))
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
  
     
-def modify_image_v3(image_file, modification, output_type="url", similarity=50, api_key=None):
+def modify_image_v3(api_key=None,image_file="", modification="", output_type="url", similarity=50, ):
     url = "https://api.worqhat.com/api/ai/images/modify/v3"
     headers = {
             "Authorization": "Bearer " + api_key,
@@ -76,11 +76,11 @@ def modify_image_v3(image_file, modification, output_type="url", similarity=50, 
             "existing_image": (image_file.name, image_file)
         }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
     
-def modify_image_v3(image_file, modification, output_type="url", similarity=50, api_key=None):
+def modify_image_v3(api_key=None,image_file="", modification="", output_type="url", similarity=50 ):
     url = "https://api.worqhat.com/api/ai/images/modify/v3"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -94,11 +94,11 @@ def modify_image_v3(image_file, modification, output_type="url", similarity=50, 
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 
-def remove_text_from_image(image_file, output_type="url", api_key=None):
+def remove_text_from_image(api_key=None,image_file="", output_type="url", ):
     url = "https://api.worqhat.com/api/ai/images/modify/v3/remove-text"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -110,11 +110,11 @@ def remove_text_from_image(image_file, output_type="url", api_key=None):
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 
-def remove_background_from_image(image_file, output_type="url", api_key=None):
+def remove_background_from_image(api_key=None,image_file="", output_type="url" ):
     url = "https://api.worqhat.com/api/ai/images/modify/v3/remove-background"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -126,11 +126,11 @@ def remove_background_from_image(image_file, output_type="url", api_key=None):
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 
-def replace_background(image_file, modification="Create Variation of the Image", output_type="url", api_key=None):
+def replace_background( api_key=None,image_file="", modification="Create Variation of the Image", output_type="url"):
     url = "https://api.worqhat.com/api/ai/images/modify/v3/replace-background"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -143,11 +143,11 @@ def replace_background(image_file, modification="Create Variation of the Image",
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 
-def search_replace_image(image_file, modification="Create Variation of the Image", output_type="url", api_key=None):
+def search_replace_image(api_key=None,image_file="", modification="Create Variation of the Image", output_type="url", ):
     url = "https://api.worqhat.com/api/ai/images/modify/v3/search-replace-image"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -160,11 +160,11 @@ def search_replace_image(image_file, modification="Create Variation of the Image
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 
-def extend_image(image_file, left_extend=10, right_extend=10, top_extend=5, bottom_extend=5, description=None, output_type="url", api_key=None):
+def extend_image(api_key=None,image_file="", left_extend=10, right_extend=10, top_extend=5, bottom_extend=5, description=None, output_type="url" ):
     url = "https://api.worqhat.com/api/ai/images/modify/v3/extend-image"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -183,11 +183,11 @@ def extend_image(image_file, left_extend=10, right_extend=10, top_extend=5, bott
     if description:
         payload["description"] = description
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 
-def upscale_image(image_file, scale=2, output_type="url", api_key=None):
+def upscale_image(api_key=None,image_file="", scale=2, output_type="url"):
     url = "https://api.worqhat.com/api/ai/images/upscale/v3"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -200,7 +200,7 @@ def upscale_image(image_file, scale=2, output_type="url", api_key=None):
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 

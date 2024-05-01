@@ -4,7 +4,7 @@ def list_datasets(api_key=None):
     url = "https://api.worqhat.com/api/list-datasets"
     headers = {"Authorization": "Bearer " + api_key}
 
-    response = requests.request(url, headers=headers)
+    response = requests.request("POST",url, headers=headers)
 
     return response.text
     
@@ -14,7 +14,7 @@ def delete_dataset( api_key=None,dataset_id="123456789"):
     url = f"https://api.worqhat.com/api/delete-datasets/{dataset_id}"
     headers = {"Authorization": "Bearer " + api_key}
 
-    response = requests.request(url, headers=headers)
+    response = requests.request("POST",url, headers=headers)
 
     return response.text
 
@@ -33,7 +33,7 @@ def train_dataset(api_key=None,dataset_id="123456789", dataset_name="Sample Data
             "training_file": (training_file, open(training_file, 'rb'))
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 

@@ -1,9 +1,9 @@
-from worqHat.ai_models import ai_search
+from worqHat.ai_models import text_gen
 
 try: 
     with open("hand position.jpg", 'r') as file: 
 
-        r=ai_search.search_ai_v2("sk-02e44d2ccb164c738a6c4a65dbf75e89",file)
+        r=text_gen.get_ai_responsev3("sk-02e44d2ccb164c738a6c4a65dbf75e89","Where can i see Taj mahal")
         print (r)
 except FileNotFoundError: 
     print("File not found.") 

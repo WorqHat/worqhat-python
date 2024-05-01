@@ -30,7 +30,7 @@ def web_extract(api_key=None, url_search="www.worqhat.com", headline=True, inlin
         "tables": tables
     }
 
-    response = requests.request(url, json=payload, headers=headers)
+    response = requests.request("POST",url, json=payload, headers=headers)
 
     return response.text
 
@@ -46,7 +46,7 @@ def image_text_detection(api_key=None,image_file=None, output_type="json" ):
         "image": (image_file.name, image_file)
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
 
@@ -61,6 +61,6 @@ def speech_to_text(api_key=None,audio_file=None ):
         "audio": (audio_file.name, audio_file)
     }
 
-    response = requests.request(url, files=payload, headers=headers)
+    response = requests.request("POST",url, files=payload, headers=headers)
 
     return response.text
