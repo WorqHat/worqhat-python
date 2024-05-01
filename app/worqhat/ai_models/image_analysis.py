@@ -1,5 +1,5 @@
 import requests
-def image_analysis(api_key=None, images=None, question=None, training_data=None, output_type="text", stream_data=False):
+def image_analysis(api_key=None, images=None, question="", training_data="", output_type="text", stream_data=False):
     url = "https://api.worqhat.com/api/ai/images/v2/image-analysis"
     headers = {
         "Authorization": "Bearer " + api_key,

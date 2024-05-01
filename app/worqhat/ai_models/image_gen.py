@@ -1,6 +1,6 @@
 import requests 
 
-def generate_image_v2(api_key=None,prompt="", image_style="realistic", output_type="url", orientation="square" ):
+def generate_image_v2(api_key=None,prompt="", image_style="realistic", output_type="url", orientation="square"):
 
     url = "https://api.worqhat.com/api/ai/images/generate/v2"
     headers = {
@@ -15,7 +15,7 @@ def generate_image_v2(api_key=None,prompt="", image_style="realistic", output_ty
         "orientation": orientation
     }
 
-    response = requests.request("POST",url, json=payload, headers=headers)
+    response = requests.request('POST',url, json=payload, headers=headers)
 
     return response.text
 
@@ -60,26 +60,7 @@ def modify_image_v2(api_key=None,file_path="", modification="", output_type="url
 
     return response.text
  
-    
-def modify_image_v3(api_key=None,image_file="", modification="", output_type="url", similarity=50, ):
-    url = "https://api.worqhat.com/api/ai/images/modify/v3"
-    headers = {
-            "Authorization": "Bearer " + api_key,
-            "Content-Type": "multipart/form-data"
-    }
-
-        # Construct payload with multipart form-data
-    payload = {
-            "output_type": (None, output_type),
-            "modification": (None, modification),
-            "similarity": (None, str(similarity)),
-            "existing_image": (image_file.name, image_file)
-        }
-
-    response = requests.request("POST",url, files=payload, headers=headers)
-
-    return response.text
-    
+        
 def modify_image_v3(api_key=None,image_file="", modification="", output_type="url", similarity=50 ):
     url = "https://api.worqhat.com/api/ai/images/modify/v3"
     headers = {

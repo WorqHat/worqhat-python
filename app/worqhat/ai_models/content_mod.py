@@ -1,6 +1,8 @@
 import requests 
 
 def content_moderation(api_key=None,text_content=""):
+    if text_content=="":
+        return("Question is incomplete")
     url = "https://api.worqhat.com/api/ai/moderation"
     headers = {
         "Authorization": "Bearer " + api_key,
