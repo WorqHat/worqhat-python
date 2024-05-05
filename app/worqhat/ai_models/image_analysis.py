@@ -1,10 +1,25 @@
 import requests
-def image_analysis(api_key=None, images=None, question="", training_data="", output_type="text", stream_data=False):
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+def image_analysis(images=None, question="", training_data="", output_type="text", stream_data=False, api_key=None):
     url = "https://api.worqhat.com/api/ai/images/v2/image-analysis"
     headers = {
-        "Authorization": "Bearer " + api_key,
         "Content-Type": "multipart/form-data"
     }
+
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
+    headers["Authorization"] = "Bearer " + api_key
 
     payload = {
         "output_type": output_type,
@@ -19,37 +34,55 @@ def image_analysis(api_key=None, images=None, question="", training_data="", out
     if training_data:
         payload["training_data"] = training_data
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text
 
-def face_detection(api_key=None, image_file=None):
+def face_detection(image_file=None, api_key=None):
     url = "https://api.worqhat.com/api/ai/images/v2/face-detection"
     headers = {
-        "Authorization": "Bearer " + api_key,
         "Content-Type": "multipart/form-data"
     }
+
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
+    headers["Authorization"] = "Bearer " + api_key
 
     payload = {
         "image": (image_file.name, image_file)
     }
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text
 
-def facial_comparison(api_key=None, source_image_file=None, target_image_file=None):
+def facial_comparison(source_image_file=None, target_image_file=None, api_key=None):
     url = "https://api.worqhat.com/api/ai/images/v2/facial-comparison"
     headers = {
-        "Authorization": "Bearer " + api_key,
         "Content-Type": "multipart/form-data"
     }
+
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
+    headers["Authorization"] = "Bearer " + api_key
 
     payload = {
         "source_image": (source_image_file.name, source_image_file),
         "target_image": (target_image_file.name, target_image_file)
     }
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text

@@ -1,6 +1,18 @@
-import requests 
+import requests
+import os
+from dotenv import load_dotenv
 
-def generate_image_v2(api_key=None,prompt="", image_style="realistic", output_type="url", orientation="square"):
+# Load environment variables from .env file
+load_dotenv()
+
+def generate_image_v2(prompt="", image_style="realistic", output_type="url", orientation="square", api_key=None):
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
 
     url = "https://api.worqhat.com/api/ai/images/generate/v2"
     headers = {
@@ -15,53 +27,71 @@ def generate_image_v2(api_key=None,prompt="", image_style="realistic", output_ty
         "orientation": orientation
     }
 
-    response = requests.request('POST',url, json=payload, headers=headers)
+    response = requests.post(url, json=payload, headers=headers)
 
     return response.text
 
-    
-def generate_image_v3(api_key=None,prompt="", image_style="realistic", output_type="url", orientation="square", ):
-    
+def generate_image_v3(prompt="", image_style="realistic", output_type="url", orientation="square", api_key=None):
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
     url = "https://api.worqhat.com/api/ai/images/generate/v3"
     headers = {
-            "Authorization": "Bearer " + api_key,
-            "Content-Type": "application/json"
+        "Authorization": "Bearer " + api_key,
+        "Content-Type": "application/json"
     }
 
     payload = {
-            "prompt": prompt,
-            "image_style": image_style,
-            "output_type": output_type,
-            "orientation": orientation
+        "prompt": prompt,
+        "image_style": image_style,
+        "output_type": output_type,
+        "orientation": orientation
     }
 
-    response = requests.request("POST",url, json=payload, headers=headers)
+    response = requests.post(url, json=payload, headers=headers)
 
     return response.text
 
+def modify_image_v2(file_path="", modification="", output_type="url", similarity=50, api_key=None):
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
 
-def modify_image_v2(api_key=None,file_path="", modification="", output_type="url", similarity=50 ):
-   
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
     url = "https://api.worqhat.com/api/ai/images/modify/v2"
     headers = {
         "Authorization": "Bearer " + api_key,
         "Content-Type": "multipart/form-data"
     }
 
-        # Construct payload with multipart form-data
     payload = {
-            "output_type": (None, output_type),
-            "modification": (None, modification),
-            "similarity": (None, str(similarity)),
-            "existing_image": (file_path.split("/")[-1], open(file_path, 'rb'))
+        "output_type": (None, output_type),
+        "modification": (None, modification),
+        "similarity": (None, str(similarity)),
+        "existing_image": (file_path.split("/")[-1], open(file_path, 'rb'))
     }
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text
- 
-        
-def modify_image_v3(api_key=None,image_file="", modification="", output_type="url", similarity=50 ):
+
+def modify_image_v3(image_file="", modification="", output_type="url", similarity=50, api_key=None):
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
     url = "https://api.worqhat.com/api/ai/images/modify/v3"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -75,11 +105,19 @@ def modify_image_v3(api_key=None,image_file="", modification="", output_type="ur
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text
 
-def remove_text_from_image(api_key=None,image_file="", output_type="url", ):
+def remove_text_from_image(image_file="", output_type="url", api_key=None):
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
     url = "https://api.worqhat.com/api/ai/images/modify/v3/remove-text"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -91,11 +129,19 @@ def remove_text_from_image(api_key=None,image_file="", output_type="url", ):
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text
 
-def remove_background_from_image(api_key=None,image_file="", output_type="url" ):
+def remove_background_from_image(image_file="", output_type="url", api_key=None):
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
     url = "https://api.worqhat.com/api/ai/images/modify/v3/remove-background"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -107,11 +153,19 @@ def remove_background_from_image(api_key=None,image_file="", output_type="url" )
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text
 
-def replace_background( api_key=None,image_file="", modification="Create Variation of the Image", output_type="url"):
+def replace_background(image_file="", modification="Create Variation of the Image", output_type="url", api_key=None):
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
     url = "https://api.worqhat.com/api/ai/images/modify/v3/replace-background"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -124,11 +178,19 @@ def replace_background( api_key=None,image_file="", modification="Create Variati
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text
 
-def search_replace_image(api_key=None,image_file="", modification="Create Variation of the Image", output_type="url", ):
+def search_replace_image(image_file="", modification="Create Variation of the Image", output_type="url", api_key=None):
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
     url = "https://api.worqhat.com/api/ai/images/modify/v3/search-replace-image"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -141,11 +203,19 @@ def search_replace_image(api_key=None,image_file="", modification="Create Variat
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text
 
-def extend_image(api_key=None,image_file="", left_extend=10, right_extend=10, top_extend=5, bottom_extend=5, description=None, output_type="url" ):
+def extend_image(image_file="", left_extend=10, right_extend=10, top_extend=5, bottom_extend=5, description=None, output_type="url", api_key=None):
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
     url = "https://api.worqhat.com/api/ai/images/modify/v3/extend-image"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -164,11 +234,19 @@ def extend_image(api_key=None,image_file="", left_extend=10, right_extend=10, to
     if description:
         payload["description"] = description
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text
 
-def upscale_image(api_key=None,image_file="", scale=2, output_type="url"):
+def upscale_image(image_file="", scale=2, output_type="url", api_key=None):
+    # If api_key is not provided, get it from the environment variable
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+
+    # If api_key is still not provided, return an error message
+    if not api_key:
+        return "Please enter an appropriate API Key"
+
     url = "https://api.worqhat.com/api/ai/images/upscale/v3"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -181,7 +259,6 @@ def upscale_image(api_key=None,image_file="", scale=2, output_type="url"):
         "existing_image": (image_file.name, image_file)
     }
 
-    response = requests.request("POST",url, files=payload, headers=headers)
+    response = requests.post(url, files=payload, headers=headers)
 
     return response.text
-
