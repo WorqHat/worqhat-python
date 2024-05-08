@@ -48,7 +48,7 @@ def get_ai_response_v2(question="",
         json_response = response.text
         try:
             json_data = json.loads(json_response)
-            print(json.dumps(json_data, indent=4))
+            return(json.dumps(json_data, indent=4))
         except json.JSONDecodeError:
             print(json_response)
 

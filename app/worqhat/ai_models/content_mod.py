@@ -30,27 +30,39 @@ def content_moderation(text_content="",api_key=None):
 
     return response.text
 
-def image_moderation(image_file=None,api_key=None):
-    # If image_file is not provided, return an error message
-    if not image_file:
-        return "Image file is missing"
+def image_moderation(images=None, api_key=None):
+    # If images is not provided or empty, return an error message
+    if not images or len(images) == 0:
+        return "Images are missing"
+
+    # If api_key is not provided, retrieve from environment variable
     if not api_key:
-    # Retrieve API key from environment variable
         api_key = os.getenv("API_KEY")
 
-    # If api_key is not provided, return an error message
+    # If api_key is still not available, return an error message
     if not api_key:
-        return "Please enter an appropriate API key"
+        return "Please provide an appropriate API key"
 
     url = "https://api.worqhat.com/api/ai/images/v2/image-moderation"
     headers = {
-        "Authorization": "Bearer " + api_key
+        "Authorization": f"Bearer {api_key}"
     }
 
-    payload = {
-        "image": image_file
-    }
+    results = []
 
-    response = requests.post(url, files=payload, headers=headers)
+    for image in images:
+        # Prepare files data in the required format
+        if image.startswith('http://') or image.startswith('https://'):
+            # If image is a URL, download the image content
+            response = requests.get(image)
+            files = [('image', ('file', response.content, 'application/octet-stream'))]
+        else:
+            # If image is a local file path, read the file content
+            with open(image, 'rb') as f:
+                files = [('image', ('file', f, 'application/octet-stream'))]
 
-    return response.text
+        # Make the API call
+        response = requests.post(url, files=files, headers=headers)
+        results.append(response.text)
+
+    return results
