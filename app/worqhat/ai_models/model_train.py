@@ -15,7 +15,7 @@ def list_datasets(api_key=None):
     
 def delete_dataset(dataset_id="", api_key=None):
     if dataset_id=="":
-        return ValueError("No Dataset Id provided")
+        raise ValueError("No Dataset Id provided")
     if not api_key:
         api_key = os.getenv("API_KEY")
     if not api_key:
@@ -28,7 +28,7 @@ def delete_dataset(dataset_id="", api_key=None):
     
 def train_dataset(dataset_id="", dataset_name="", dataset_type="", json_data="", training_file=None, api_key=None):
     if dataset_id=="":
-        return ValueError("No Dataset Id provided")
+        raise ValueError("No Dataset Id provided")
     if not api_key:
         api_key = os.getenv("API_KEY")
     if not api_key:

@@ -23,7 +23,7 @@ def extract_pdf_text(pdf_file=None, api_key=None):
 
 def web_extract(url_search="", headline=True, inline_code=True, code_blocks=True, references=True, tables=True, api_key=None):
     if url_search=="":
-        return ValueError("No URL provided")
+        raise ValueError("No URL provided")
     if not api_key:
         api_key = os.getenv("API_KEY")
     if not api_key:
@@ -48,7 +48,7 @@ def web_extract(url_search="", headline=True, inline_code=True, code_blocks=True
 def detect_image_text(image=None, output_type="text", api_key=None):
 
     if not image or len(image) == 0:
-        return ValueError("Images are missing")
+        raise ValueError("Images are missing")
     if not api_key:
         api_key = os.getenv("API_KEY")
     if not api_key:
@@ -72,7 +72,7 @@ def detect_image_text(image=None, output_type="text", api_key=None):
 
 def convert_speech_to_text(audio_file=None, api_key=None):
     if not audio_file:
-        return ValueError("Audio file is missing")
+        raise ValueError("Audio file is missing")
     if not api_key:
         api_key = os.getenv("API_KEY")
     if not api_key:

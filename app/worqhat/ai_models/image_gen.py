@@ -253,23 +253,31 @@ def extend_image(image=None,output_type="URL", left_extend="100", right_extend="
     response = requests.post(url, headers=headers, data=payload, files=files)
     return response.text
 
-def upscale_image(image_file="", scale=2, output_type="url", api_key=None):
-    if not image_file:
+def upscale_image(existing_image=None,scale="4", output_type="URL",api_key=None):
+    if not existing_image:
         return "Existing image is missing"
     if not api_key:
         api_key = os.getenv("API_KEY")
     if not api_key:
         raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
-    
+
     url = "https://api.worqhat.com/api/ai/images/upscale/v3"
     headers = {
-        "Authorization": "Bearer " + api_key,
-        "Content-Type": "multipart/form-data"
+        "Authorization": f"Bearer {api_key}"
     }
     payload = {
-        "output_type": output_type,
         "scale": scale,
-        "existing_image": (image_file.name, image_file)
+        "output_type": output_type
     }
-    response = requests.post(url, files=payload, headers=headers)
+
+    if existing_image.startswith('http://') or existing_image.startswith('https://'):
+
+        response = requests.get(existing_image)
+        files = [('existing_image', ('file', response.content, 'image/png'))]
+    else:
+        with open(existing_image, 'rb') as f:
+            files = [('existing_image', ('file', f, 'image/png'))]
+
+    response = requests.post(url, headers=headers, data=payload, files=files)
+
     return response.text
