@@ -7,14 +7,14 @@ load_dotenv()
 
 def content_moderation(text_content="",api_key=None):
     if text_content == "":
-        return "Text content is incomplete"
+        return "Text content is incomplete. Please give some text and try again. "
     if not api_key:
     # Retrieve API key from environment variable
         api_key = os.getenv("API_KEY")
 
     # If api_key is not provided, return an error message
     if not api_key:
-        return "Please enter an appropriate API key"
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
 
     url = "https://api.worqhat.com/api/ai/moderation"
     headers = {
@@ -33,7 +33,7 @@ def content_moderation(text_content="",api_key=None):
 def image_moderation(images=None, api_key=None):
     # If images is not provided or empty, return an error message
     if not images or len(images) == 0:
-        return "Images are missing"
+        return "No images found. Please try again "
 
     # If api_key is not provided, retrieve from environment variable
     if not api_key:
@@ -41,7 +41,7 @@ def image_moderation(images=None, api_key=None):
 
     # If api_key is still not available, return an error message
     if not api_key:
-        return "Please provide an appropriate API key"
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
 
     url = "https://api.worqhat.com/api/ai/images/v2/image-moderation"
     headers = {

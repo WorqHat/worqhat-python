@@ -12,8 +12,7 @@ def list_datasets(api_key=None):
 
     # If api_key is still not provided, return an error message
     if not api_key:
-        return "Please enter an appropriate API Key"
-
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/list-datasets"
     headers = {"Authorization": "Bearer " + api_key}
 

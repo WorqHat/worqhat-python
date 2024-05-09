@@ -13,7 +13,7 @@ def extract_pdf_text(pdf_file=None, api_key=None):
     # If api_key is not provided, retrieve from environment variable
     if not api_key:
         api_key = os.getenv("API_KEY")
-
+        print(api_key)
     # If api_key is still not available, return an error message
     if not api_key:
         return "Please provide an appropriate API key"

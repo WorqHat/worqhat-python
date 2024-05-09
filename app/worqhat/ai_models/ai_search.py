@@ -7,14 +7,14 @@ load_dotenv()
 
 def search_ai_v2(question="", training_data="", api_key=None):
     if question == "":
-        return "Question is incomplete"
+        return "Question is incomplete. Please give a question and try again."
 
     # If api_key is not provided, get it from the environment variable
     if not api_key:
         api_key = os.getenv("API_KEY")
 
     if not api_key:
-        return "Please enter an appropriate API key"
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
 
     url = "https://api.worqhat.com/api/ai/search/v2"
     headers = {
@@ -33,14 +33,14 @@ def search_ai_v2(question="", training_data="", api_key=None):
 
 def search_ai_v3(question="", training_data="", search_count=10, api_key=None):
     if question == "":
-        return "Question is incomplete"
+        return "Question is incomplete. Please give a question and try again"
 
     # If api_key is not provided, get it from the environment variable
     if not api_key:
         api_key = os.getenv("API_KEY")
 
     if not api_key:
-        return "Please enter an appropriate API key"
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
 
     url = "https://api.worqhat.com/api/ai/search/v3"
     headers = {
