@@ -1,6 +1,12 @@
 import requests
-
+import os 
+from dotenv import load_dotenv
+load_dotenv()
 def fetch_all_collections(api_key=None):
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/fetch-all"
     headers = {
         "Authorization": "Bearer " + api_key
@@ -10,7 +16,13 @@ def fetch_all_collections(api_key=None):
 
     return response.text
 
-def fetch_all_docs_from_collection(api_key=None,collection='', output_type="json"):
+def fetch_all_docs_from_collection(collection='', output_type="json",api_key=None,):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/fetch/all"
     payload = {
         "collection": collection,
@@ -25,7 +37,13 @@ def fetch_all_docs_from_collection(api_key=None,collection='', output_type="json
 
     return response.text
 
-def fetch_doc_from_collection( api_key=None,collection='', doc_id='',):
+def fetch_doc_from_collection( collection='', doc_id='',api_key=None):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/fetch/document"
     payload = {
         "collection": collection,
@@ -40,7 +58,13 @@ def fetch_doc_from_collection( api_key=None,collection='', doc_id='',):
 
     return response.text
 
-def fetch_doc_count_by_field(api_key=None,collection='', field=''):
+def fetch_doc_count_by_field(collection='', field='',api_key=None):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/fetch/count"
     payload = {
         "collection": collection,
@@ -55,7 +79,13 @@ def fetch_doc_count_by_field(api_key=None,collection='', field=''):
 
     return response.text
 
-def fetch_unique_keys_ordered(api_key=None,collection='', field='', order_by='', order_type='' ):
+def fetch_unique_keys_ordered(collection='', field='', order_by='', order_type='',api_key=None):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/fetch/unique"
     payload = {
         "collection": collection,
@@ -72,7 +102,13 @@ def fetch_unique_keys_ordered(api_key=None,collection='', field='', order_by='',
 
     return response.text
 
-def fetch_docs_by_query(api_key=None,collection='', queries='', compounding="and", order_by=None, order_type="asc", limit=None, start_after=None, output_type="json", ):
+def fetch_docs_by_query(collection='', queries='', compounding="and", order_by=None, order_type="asc", limit=None, start_after=None, output_type="json",api_key=None ):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/fetch/query"
     payload = {
         "collection": collection,
@@ -93,7 +129,13 @@ def fetch_docs_by_query(api_key=None,collection='', queries='', compounding="and
 
     return response.text
 
-def fetch_docs_by_natural_query(api_key=None,collection='', query='', output_type="json" ):
+def fetch_docs_by_natural_query(collection='', query='', output_type="json",api_key=None ):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/fetch/natural-query"
     payload = {
         "collection": collection,

@@ -1,6 +1,15 @@
 import requests
+import os 
+from dotenv import load_dotenv
 
-def create_collection(api_key=None,collection='', collection_schema='', collection_sort_by='' ):
+load_dotenv()
+def create_collection(collection='', collection_schema='', collection_sort_by='',api_key=None ):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/create"
     headers = {
         "Authorization": "Bearer " + api_key,

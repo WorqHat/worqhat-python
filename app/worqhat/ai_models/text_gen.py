@@ -5,7 +5,6 @@ import os
 
 # Load environment variables from .env file
 load_dotenv()
-
 def get_ai_response_v2(question="", 
                        preserve_history=False, 
                        randomness=0.5, 
@@ -34,7 +33,7 @@ def get_ai_response_v2(question="",
     if api_key:
         headers["Authorization"] = "Bearer " + api_key
     else:
-        return "Please enter an appropriate API_KEY"
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
 
     response = requests.post(url, json=payload, headers=headers, stream=stream_data)
 
@@ -81,7 +80,7 @@ def get_ai_response_v3(question="",
     if api_key:
         headers["Authorization"] = "Bearer " + api_key
     else:
-        return "Please enter an appropriate API_KEY"
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
 
     response = requests.post(url, json=payload, headers=headers, stream=stream_data)
 
@@ -109,7 +108,6 @@ def get_alpha_ai_response(question="",
                           response_type="text",
                           api_key=None):
     url = "https://api.worqhat.com/api/ai/content/v3/alpha"
-
     payload = {
         "question": question,
         "preserve_history": preserve_history,
@@ -119,19 +117,14 @@ def get_alpha_ai_response(question="",
         "training_data": training_data,
         "response_type": response_type
     }
-
     headers = {"Content-Type": "application/json"}
-
     if not api_key:
         api_key = os.getenv("API_KEY")
-
     if api_key:
         headers["Authorization"] = "Bearer " + api_key
     else:
-        return "Please enter an appropriate API_KEY"
-
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     response = requests.request("POST",url, json=payload, headers=headers)
-
     if stream_data:
         for line in response.iter_lines():
             if line:
@@ -156,7 +149,6 @@ def get_large_ai_response_v2(question="",
                              instructions=None,
                              api_key=None):
     url = "https://api.worqhat.com/api/ai/content/v2-large/answering"
-
     payload = {
         "question": question,
         "datasetId": dataset_id,
@@ -166,17 +158,24 @@ def get_large_ai_response_v2(question="",
         "conversation_history": conversation_history,
         "instructions": instructions
     }
-
     headers = {"Content-Type": "application/json"}
-
     if not api_key:
         api_key = os.getenv("API_KEY")
-
     if api_key:
         headers["Authorization"] = "Bearer " + api_key
     else:
-        return "Please enter an appropriate API_KEY"
-
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     response = requests.request("POST",url, json=payload, headers=headers)
-
-    return response.text
+    if stream_data:
+        for line in response.iter_lines():
+            if line:
+                if line.startswith(b'data:'):
+                    json_content = line[len(b'data:'):].decode('utf-8').strip()
+                    print(json_content)
+    else:
+        json_response = response.text
+        try:
+            json_data = json.loads(json_response)
+            print(json.dumps(json_data, indent=4))
+        except json.JSONDecodeError:
+            print(json_response)

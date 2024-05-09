@@ -1,6 +1,15 @@
 import requests
+import os 
+from dotenv import load_dotenv
+load_dotenv()
 
-def add_data_to_collection(api_key=None,collection='', doc_id='', data='' ):
+def add_data_to_collection(collection='', doc_id='', data='',api_key=None ):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/add"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -17,7 +26,13 @@ def add_data_to_collection(api_key=None,collection='', doc_id='', data='' ):
 
     return response.text
 
-def update_data_in_collection( api_key=None,collection='', doc_id='', data=''):
+def update_data_in_collection( collection='', doc_id='', data='',api_key=None):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/update"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -34,7 +49,13 @@ def update_data_in_collection( api_key=None,collection='', doc_id='', data=''):
 
     return response.text
 
-def increment_field_in_collection(api_key=None,collection='', doc_id='', field='', increment_value=''):
+def increment_field_in_collection(collection='', doc_id='', field='', increment_value='',api_key=None):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/increment"
     headers = {
         "Authorization": "Bearer " + api_key,
@@ -52,7 +73,13 @@ def increment_field_in_collection(api_key=None,collection='', doc_id='', field='
 
     return response.text
 
-def update_array_in_collection(api_key=None,collection='', doc_id='', field='', value='' ):
+def update_array_in_collection(collection='', doc_id='', field='', value='',api_key=None ):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/array/update/add"
     payload = {
         "collection": collection,
@@ -69,7 +96,13 @@ def update_array_in_collection(api_key=None,collection='', doc_id='', field='', 
 
     return response.text
 
-def remove_array_element_from_collection(api_key=None,collection='', doc_id='', field='', value=''):
+def remove_array_element_from_collection(collection='', doc_id='', field='', value='',api_key=None):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/array/update/remove"
     payload = {
         "collection": collection,
@@ -86,7 +119,13 @@ def remove_array_element_from_collection(api_key=None,collection='', doc_id='', 
 
     return response.text
 
-def delete_doc_from_collection(api_key=None,collection='', doc_id=''):
+def delete_doc_from_collection(collection='', doc_id='',api_key=None):
+    if collection=='':
+        return ("Please enter a Collection name")
+    if not api_key:
+        api_key = os.getenv("API_KEY")
+    if not api_key:
+        raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
     url = "https://api.worqhat.com/api/collections/data/delete"
     payload = {
         "collection": collection,
