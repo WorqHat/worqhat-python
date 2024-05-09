@@ -1,7 +1,6 @@
 import requests
 import os 
-from dotenv import load_dotenv
-load_dotenv()
+
 
 def add_data_to_collection(collection='', doc_id='', data='',api_key=None ):
     if collection=='':

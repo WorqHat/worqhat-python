@@ -1,1 +1,1 @@
-from .worqHat import *
+from .worqhat import *

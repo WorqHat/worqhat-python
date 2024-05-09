@@ -1,7 +1,6 @@
 import requests
 import os 
-from dotenv import load_dotenv
-load_dotenv()
+
 def fetch_all_collections(api_key=None):
     if not api_key:
         api_key = os.getenv("API_KEY")

@@ -1,12 +1,11 @@
 import requests
 import os
-from dotenv import load_dotenv
 import json
 
 def analyze_images(images, question="", training_data="", output_type="text", stream_data=False, api_key=None):
-    if not image or len(image) == 0:
+    if not images or len(images) == 0:
         return "No images found. Please try again "
-    load_dotenv()
+
     api_key = api_key or os.getenv("API_KEY")
     if not api_key:
         raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
@@ -48,7 +47,6 @@ def analyze_images(images, question="", training_data="", output_type="text", st
 def detect_faces(image, api_key=None):
     if not image or len(image) == 0:
         return "No images found. Please try again "
-    load_dotenv()
     api_key = api_key or os.getenv("API_KEY")
     if not api_key:
         raise ValueError("API key is missing. Provide it as an argument or in the .env file.")
@@ -70,7 +68,6 @@ def detect_faces(image, api_key=None):
 def compare_faces(source_image, target_image, api_key=None):
     if not source_image or not target_image:
         return "No images found. Please try again "
-    load_dotenv()
     api_key = api_key or os.getenv("API_KEY")
     if not api_key:
         raise ValueError("API key is missing. Provide it as an argument or in the .env file.")

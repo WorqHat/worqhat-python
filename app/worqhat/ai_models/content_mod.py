@@ -1,7 +1,6 @@
 import requests 
 import os
-from dotenv import load_dotenv
-load_dotenv()
+
 
 def content_moderation(text_content="",api_key=None):
     if text_content == "":

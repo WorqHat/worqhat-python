@@ -1,10 +1,6 @@
 import requests 
 import json
-from dotenv import load_dotenv
 import os
-
-# Load environment variables from .env file
-load_dotenv()
 def get_ai_response_v2(question="", 
                        preserve_history=False, 
                        randomness=0.5, 

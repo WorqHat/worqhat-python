@@ -1,8 +1,6 @@
 import requests
 import os 
-from dotenv import load_dotenv
 
-load_dotenv()
 def create_collection(collection='', collection_schema='', collection_sort_by='',api_key=None ):
     if collection=='':
         return ("Please enter a Collection name")

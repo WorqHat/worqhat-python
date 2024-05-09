@@ -4,7 +4,7 @@ with open("app/README.md", "r") as f:
     long_description = f.read()
 
 setup(
-    name="worqHat",
+    name="worqhat",
     version="0.0.1",
     description="A package with all the APIs available from worqHat",
     package_dir={"": "app"},

@@ -1,9 +1,6 @@
 import requests
 import os
-from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
 
 def extract_pdf_text(pdf_file=None, api_key=None):
     if not pdf_file:

@@ -1,7 +1,5 @@
 import os
-from dotenv import load_dotenv
 import requests
-load_dotenv()
 
 def search_ai_v2(question="", training_data="", api_key=None):
     if question == "":

@@ -1,8 +1,6 @@
 import requests
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
 
 def generate_image_v2(prompt="", image_style="realistic", output_type="url", orientation="square", api_key=None):
     if not api_key:
