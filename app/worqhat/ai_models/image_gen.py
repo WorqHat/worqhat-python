@@ -2,7 +2,7 @@ import requests
 import os
 
 
-def generate_image_v2(prompt="", image_style="realistic", output_type="url", orientation="square", api_key=None):
+def generate_image_v2(prompt=[""], image_style="realistic", output_type="url", orientation="square", api_key=None):
     if not api_key:
         api_key = os.getenv("API_KEY")
     if not api_key:
@@ -21,7 +21,7 @@ def generate_image_v2(prompt="", image_style="realistic", output_type="url", ori
     response = requests.post(url, json=payload, headers=headers)
     return response.text
 
-def generate_image_v3(prompt="", image_style="realistic", output_type="url", orientation="square", api_key=None):
+def generate_image_v3(prompt=[], image_style="realistic", output_type="url", orientation="square", api_key=None):
     if not api_key:
         api_key = os.getenv("API_KEY")
 

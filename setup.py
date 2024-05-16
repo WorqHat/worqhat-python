@@ -5,7 +5,7 @@ with open("app/README.md", "r") as f:
 
 setup(
     name="worqhat",
-    version="0.0.1",
+    version="1.0",
     description="A package with all the APIs available from worqHat",
     package_dir={"": "app"},
     packages=find_packages(where="app"),
